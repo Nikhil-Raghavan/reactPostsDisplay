@@ -13,45 +13,44 @@ import { makeSelectPosts } from './selector'
 import { getPosts } from './actions'
 import { Form, Button, Container, InputGroup, Row , Col , Table , Modal } from 'react-bootstrap';
 import Pagination from '../../components/Pagination';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import SearchBar from "material-ui-search-bar";
+import DataTableComponent from '../../components/DataTableComponent';
 
 
 const key = 'Dashboard';
 
 
-function PostRow(props) {
-  const { userId, id, title } = props.data;
-  return (
+// function PostRow(props) {
+//   const { userId, id, title } = props.data;
+//   return (
   
-  <tr>
-      <td>{userId}</td>
-      <td>{id}</td>
-      <td>{title}</td>
-    </tr>
-  );
-}
+//   <tr>
+//       <td>{userId}</td>
+//       <td>{id}</td>
+//       <td>{title}</td>
+//     </tr>
+//   );
+// }
 
-function OuterTable(props) {
-  return (
+// function OuterTable(props) {
+//   return (
   
-    <Table>
-      <thead>
-        <th>User ID</th>
-        <th>ID</th>
-        <th>Title</th>
-      </thead>
+//     <Table>
+//       <thead>
+//         <th>User ID</th>
+//         <th>ID</th>
+//         <th>Title</th>
+//       </thead>
 
-      <tbody>
+//       <tbody>
 
-        {props.children}
+//         {props.children}
 
-      </tbody>
-    </Table>
-  );
-}
-
-
+//       </tbody>
+//     </Table>
+//   );
+// }
 
 const Dashboard = ({posts, fetchPosts , token, history }) => {
 
@@ -61,12 +60,6 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
   const [searchValue, setSearchValue] = useState('')
   const [rowChange, setRowChange] = useState(false)
   const [filterRows,setFilterRows] = useState('')
-
-  // useEffect(() =>{
-
-  //   setRows(tempRows)
-
-  // },[rowChange])
 
 
   useInjectReducer({ key, reducer });
@@ -107,7 +100,7 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
     columns = [
       { field: 'id', headerName: 'Id', width: 130 },
       { field: 'userId', headerName: 'UserId', width: 130 },
-      { field: 'title', headerName: 'Title', width: 130 },
+      { field: 'title', headerName: 'Title',  flex: 1},
     ]
     
     // console.log("posts is ",posts)
@@ -128,15 +121,6 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
         {"id":ele.id, "userId":ele.userId,"title":ele.title}
       )
     })
-
-    //  if(rowChange){
-    //    setRows(tempRows)
-
-    //  }
-
-    // console.log("rows are",rows)
-
-
   
   }
 
@@ -148,8 +132,6 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
     filteredRow = posts.filter(ele=> ele.id === e.row.id)
 
     console.log(filteredRow)
-
-    // modalContent =`${filteredRow[0].id}`
 
     let tempContent = <div>
       <h4>{filteredRow[0].title}</h4>
@@ -179,15 +161,6 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
     
     let filteredSearchRows = rows.filter(ele => (ele.id.toString().toLowerCase().includes(e.toString().toLowerCase()) || ele.userId.toString().toLowerCase().includes(e.toString().toLowerCase()) || ele.title.toString().toLowerCase().includes(e.toString().toLowerCase()) ))
 
-    // console.log(newRows)
-    // console.log(filteredSearchRows)
-
-    // filteredSearchRows= filteredSearch.map((ele,index) =>{
-    //   return (
-    //     {"id":ele.id, "userId":ele.userId,"title":ele.title}
-    //   )
-    // })
-
     console.log(filteredSearchRows)
     setFilterRows(filteredSearchRows)
 
@@ -216,19 +189,6 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
 
       <Container>
 
-                  
-          {/* <Table>
-                <thead>
-                  <th>User ID</th>
-                  <th>ID</th>
-                  <th>Title</th>
-                </thead>
-
-                <tbody>
-                {content ? content : null}
-
-                </tbody>
-              </Table> */}
           {posts.length > 0 ? (
       
               // <Table>
@@ -237,10 +197,7 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
               //     <th>ID</th>
               //     <th>Title</th>
               //   </thead>
-              //   <tbody>             
-
-                
-             
+              //   <tbody>                  
           // <Pagination
           //   data={posts}
           //   title="Posts you may like !"
@@ -267,29 +224,25 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
 
         {rowChange ?
 
-        <DataGrid
+        <DataTableComponent
             disableSelectionOnClick
             columns={columns}
             rows={filterRows}
             pageSize="25"
             pagination 
             onRowClick={handleRowClick}
-      
-            />
+        />
 
             : 
 
-
-             <DataGrid
+            <DataTableComponent
             disableSelectionOnClick
             columns={columns}
             rows={rows}
             pageSize="25"
             pagination 
             onRowClick={handleRowClick}
-      
-            /> 
-
+        />
         }
 
         
@@ -318,13 +271,6 @@ const Dashboard = ({posts, fetchPosts , token, history }) => {
       ) : (
        <h1>No Posts to display</h1>
       )}
-
-
-
-      
-
-       
-
       </Container>
 
     </React.Fragment >

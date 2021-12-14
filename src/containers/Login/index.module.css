@@ -8,3 +8,11 @@
 .formClass button{
     margin-top: 20px;
 }
+
+.error{
+    text-align: left;
+    color: red;
+    margin-bottom: 5px;
+    font-size: 14px;
+    padding: 5px 10px;
+}

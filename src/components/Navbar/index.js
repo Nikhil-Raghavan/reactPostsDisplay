@@ -1,4 +1,5 @@
 import { Navbar , Nav , Container } from "react-bootstrap";
+import { NavLink } from 'react-router-dom';
 
   const navbar = () =>{
 
@@ -7,11 +8,10 @@ import { Navbar , Nav , Container } from "react-bootstrap";
    
     <Navbar bg="primary" variant="dark">
       <Container>
-      <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-      <Nav className="me-auto">
-        <Nav.Link href="#home">Home</Nav.Link>
-        <Nav.Link href="#features">Features</Nav.Link>
-        <Nav.Link href="#pricing">Pricing</Nav.Link>
+      <Navbar.Brand href as={NavLink} to='/'>React App</Navbar.Brand>
+      <Nav className="me-auto">        
+        {/* <Nav.Link href="#features">Features</Nav.Link> */}
+        <Nav.Link href as={NavLink} to='/dashboard'>Dashboard</Nav.Link>
       </Nav>
       </Container>
     </Navbar>
