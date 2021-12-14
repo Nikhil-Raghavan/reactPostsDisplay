@@ -1,0 +1,6 @@
+.trans_1_sec{
+    transition-duration: 1s;
+}
+.trans_ease{
+    transition-timing-function: ease;
+}
