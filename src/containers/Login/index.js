@@ -49,23 +49,35 @@ const Login = ({token, setValidationToken , history, location}) => {
 
   const handleSubmit=(e)=>{
     e.preventDefault()
+    e.stopPropagation()
     if(validate()){
       console.log("validated")
 
       let formData = {"email": email, "password": password}
 
-      console.log(formData)
+      // console.log(formData)
 
          let users = vrfJson.users
+
+         let flag=false;
 
       users.map((key,value) =>{
 
         if(formData.email == key.email && formData.password == key.password){
-          console.log("matched",key.email,key.password)
+          // console.log("matched",key.email,key.password)
+          
           setUserValidated(true)
+          flag=true;
          
         }
-      })
+      }
+      )
+
+      if(!flag){
+        alert("Please enter valid credentials")
+      }
+
+      
 
     }
 

@@ -1,7 +1,7 @@
 {
 	"users": [
 		{ "id": 1, "email": "nikhil@gmail.com", "password": "Qwerty@123" },
-		{ "id": 2, "email": "russianprince", "password": 10001 },
+		{ "id": 2, "email": "abc@yahoo.com", "password": "Abcd@123" },
 		{ "id": 3, "email": "n@s.com", "password": "Qwerty@123" }
 	]
 }
